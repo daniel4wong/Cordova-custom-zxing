@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-custom-zxing" version="1.0.1">
+    <name>ZXingPlugin</name>
+    <description>ZXing Barcode Scanner Plugin for Cordova</description>
+    <license>Apache 2.0</license>
+
+    <keywords>cordova,android,zxing,barcode,qr,qr code,qrcode</keywords>
+    <repo>https://github.com/marceloburegio/cordova-plugin-zxing.git</repo>
+    <issue>https://github.com/marceloburegio/cordova-plugin-zxing/issues</issue>
+
+    <engines>
+        <engine name="cordova" version=">=4.0.0"/>
+    </engines>
+
+    <js-module src="www/zxingplugin.js" name="zxingPlugin">
+        <clobbers target="window.plugins.zxingPlugin" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ZXingPlugin">
+                <param name="android-package" value="com.milliontech.zxingplugin.ZXingPlugin"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:label="CustomScannerActivity"
+                android:screenOrientation="fullSensor"
+                android:stateNotNeeded="true"
+                android:theme="@style/zxing_CaptureTheme"
+                android:windowSoftInputMode="stateAlwaysHidden"
+                android:name="com.milliontech.zxingplugin.CustomScannerActivity">
+            </activity>
+        </config-file>
+        <source-file src="src/android/ZXingPlugin.java" target-dir="src/com/milliontech/zxingplugin" />
+        <source-file src="src/android/CustomScannerActivity.java" target-dir="src/com/milliontech/zxingplugin" />
+        <source-file src="src/android/res/layout/activity_custom_scanner.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/custom_barcode_scanner.xml" target-dir="res/layout" />
+    </platform>
+
+    <framework src="com.journeyapps:zxing-android-embedded:3.6.0" />
+</plugin>
